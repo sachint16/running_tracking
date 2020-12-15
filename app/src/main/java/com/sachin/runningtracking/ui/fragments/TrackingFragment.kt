@@ -41,27 +41,16 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
         super.onViewCreated(view, savedInstanceState)
         mapView.onCreate(savedInstanceState)
 
+        btnToggleRun.setOnClickListener {
+            toggleRun()
+        }
+
         mapView.getMapAsync {
             map = it
             addAllPolylines()
         }
 
-        btnToggleRun.setOnClickListener {
-            toggleRun()
-        }
-
         subscribeToObservers()
-    }
-
-    private fun moveCameraToUser() {
-        if (pathPoints.isNotEmpty() && pathPoints.last().isNotEmpty()) {
-            map?.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                            pathPoints.last().last(),
-                            MAP_ZOOM
-                    )
-            )
-        }
     }
 
     private fun subscribeToObservers() {
@@ -88,6 +77,17 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
             sendCommandToService(ACTION_PAUSE_SERVICE)
         } else {
             sendCommandToService(ACTION_START_OR_RESUME_SERVICE)
+        }
+    }
+
+    private fun moveCameraToUser() {
+        if (pathPoints.isNotEmpty() && pathPoints.last().isNotEmpty()) {
+            map?.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                            pathPoints.last().last(),
+                            MAP_ZOOM
+                    )
+            )
         }
     }
 
