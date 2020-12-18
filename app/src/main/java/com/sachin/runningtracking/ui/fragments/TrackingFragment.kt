@@ -29,6 +29,7 @@ import com.sachin.runningtracking.ui.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tracking.*
 import java.util.*
+import javax.inject.Inject
 import kotlin.math.round
 
 @AndroidEntryPoint
@@ -43,7 +44,9 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
 
     private var currentTimeInMillis = 0L
 
-    private var weight = 80f
+
+    @set:Inject
+    var weight = 80f
 
 
     private var menu: Menu? = null
